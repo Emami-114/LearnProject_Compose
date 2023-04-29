@@ -20,4 +20,7 @@ sealed class BottomBarScreen(val route: String, val title: String, val icon: Int
         BottomBarScreen(route = "setting", title = "Setting", icon = R.drawable.ic_setting)
     object Deutsc :
         BottomBarScreen(route = "deutsc", title = "Deutsch", icon = R.drawable.ic_setting)
+
+    object QuizDisplay :
+        BottomBarScreen(route = "quizPage", title = "Quiz", icon = R.drawable.ic_setting)
 }

@@ -2,6 +2,7 @@ package com.example.learnproject_compose.screen.home.slider
 
 import android.graphics.PorterDuff
 import android.widget.RatingBar
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 
 import com.example.learnproject_compose.R
+import com.example.learnproject_compose.screen.home.features.features
+import com.example.learnproject_compose.ui.theme.BlueViolet3
 import com.example.learnproject_compose.ui.theme.DeepBlue
 import com.example.learnproject_compose.ui.theme.TextWhite
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -56,7 +59,10 @@ fun SlideUi(slide: List<SliderModel> = slideList) {
         while (true) {
             yield()
             delay(2500)
-            pagerState.animateScrollToPage(page = (pagerState.currentPage + 1) % (pagerState.pageCount))
+            pagerState.animateScrollToPage(
+                animationSpec = tween(durationMillis = 900),
+                page = (pagerState.currentPage + 1) % (pagerState.pageCount)
+            )
         }
     }
 
@@ -91,15 +97,17 @@ fun SlideUi(slide: List<SliderModel> = slideList) {
                 val newSlid = slide[page]
                 Box(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxSize().background(BlueViolet3)
                         .align(Alignment.CenterHorizontally)
                 ) {
-                    Image(
-                        painter = painterResource(id = newSlid.imageUri),
-                        contentDescription = newSlid.title,
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.fillMaxSize()
-                    )
+//                    Image(
+//                        painter = painterResource(id = newSlid.imageUri),
+//                        contentDescription = newSlid.title,
+//                        contentScale = ContentScale.FillBounds,
+//                        modifier = Modifier.fillMaxSize()
+//                    )
+
+
                     Column(
                         modifier = Modifier
                             .align(Alignment.BottomStart)
@@ -152,7 +160,8 @@ val slideList = listOf(
     SliderModel(
         "Slide1",
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet",
-        R.drawable.image1), SliderModel(
+        R.drawable.image1
+    ), SliderModel(
         "Slide2",
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
         R.drawable.image2,

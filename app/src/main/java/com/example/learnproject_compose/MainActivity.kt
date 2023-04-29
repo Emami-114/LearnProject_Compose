@@ -22,6 +22,7 @@ import com.example.learnproject_compose.screen.bottomBar.SetupNavGraphBotton
 import com.example.learnproject_compose.screen.home.HomeScreen
 import com.example.learnproject_compose.screen.home.slider.SlideUi
 import com.example.learnproject_compose.screen.navigation.SetupNavGraph
+import com.example.learnproject_compose.screen.topbar.TopBar
 import com.example.learnproject_compose.ui.theme.LearnProject_ComposeTheme
 
 class MainActivity : ComponentActivity() {

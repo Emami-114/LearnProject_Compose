@@ -56,7 +56,7 @@ fun BottomBar(navHostController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
     BottomNavigation(
         modifier = Modifier.clip(RoundedCornerShape(topEnd = 15.dp, topStart = 15.dp)),
-        backgroundColor = DarkerButtonBlue, elevation = 600.dp,
+        backgroundColor = DarkerButtonBlue,
     ) {
         screen.forEach { screen ->
             AddItem(
