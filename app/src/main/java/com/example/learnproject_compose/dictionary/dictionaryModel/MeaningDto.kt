@@ -1,0 +1,8 @@
+package com.example.learnproject_compose.dictionary.dictionaryModel
+
+data class MeaningDto(
+    val antonyms: List<String>?,
+    val definitions: List<DefinitionDto>?,
+    val partOfSpeech: String?,
+    val synonyms: List<String>?
+)

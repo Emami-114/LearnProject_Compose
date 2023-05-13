@@ -100,12 +100,12 @@ fun SlideUi(slide: List<SliderModel> = slideList) {
                         .fillMaxSize().background(BlueViolet3)
                         .align(Alignment.CenterHorizontally)
                 ) {
-//                    Image(
-//                        painter = painterResource(id = newSlid.imageUri),
-//                        contentDescription = newSlid.title,
-//                        contentScale = ContentScale.FillBounds,
-//                        modifier = Modifier.fillMaxSize()
-//                    )
+                    Image(
+                        painter = painterResource(id = newSlid.imageUri),
+                        contentDescription = newSlid.title,
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize()
+                    )
 
 
                     Column(

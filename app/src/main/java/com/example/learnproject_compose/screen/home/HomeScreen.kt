@@ -24,8 +24,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RadialGradientShader
+import androidx.compose.ui.graphics.Shader
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,13 +54,14 @@ import com.example.learnproject_compose.ui.theme.BlueViolet3
 import com.example.learnproject_compose.ui.theme.DeepBlue
 import com.example.learnproject_compose.ui.theme.LightGreen3
 import com.example.learnproject_compose.ui.theme.LightRed
+import com.example.learnproject_compose.ui.theme.TextWhite
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().background(largeRadialGradient)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -63,14 +69,22 @@ fun HomeScreen(navController: NavController) {
         Greeting()
         SlideUi()
 
-
-
         FeaturesSection(navController)
 
     }
 }
 
-
+val largeRadialGradient = object : ShaderBrush() {
+    override fun createShader(size: Size): Shader {
+        val biggerDimension = maxOf(size.height, size.width)
+        return RadialGradientShader(
+            colors = listOf(Color(0xFF09685F), Color(0xFF243484)),
+            center = size.center,
+            radius = biggerDimension / 2f,
+            colorStops = listOf(0f, 0.95f)
+        )
+    }
+}
 
 
 @Composable
@@ -86,8 +100,8 @@ fun Greeting(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(verticalArrangement = Arrangement.Center) {
-            Text(text = "$greetingText", fontSize = 25.sp, fontWeight = FontWeight.Bold)
-            Text(text = desc, fontSize = 16.sp)
+            Text(text = "$greetingText", fontSize = 25.sp, fontWeight = FontWeight.Bold, color = TextWhite)
+            Text(text = desc, fontSize = 16.sp, color = TextWhite)
 
         }
 

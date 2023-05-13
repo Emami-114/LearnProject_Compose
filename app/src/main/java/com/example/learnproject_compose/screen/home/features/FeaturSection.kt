@@ -66,10 +66,7 @@ val features: List<Features> = listOf(
         title = "Feature2", 20, LightGreen1, LightGreen2,
         LightGreen3
     ),
-    Features(
-        title = "Feature3", 20, OrangeYellow1, OrangeYellow2,
-        OrangeYellow3
-    ),
+
     Features(
         title = "Feature4", 20, Beige1, Beige2,
         Beige3
@@ -121,7 +118,12 @@ fun FeaturesSection(
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Box(modifier = Modifier.weight(1f)) {
-                FeaturesItem(features = features[2]) {}
+                FeaturesItem(features =   Features(
+                    title = "Dictionary", 20, OrangeYellow1, OrangeYellow2,
+                    OrangeYellow3
+                )) {
+                    navController.navigate(BottomBarScreen.DictionaryPages.route)
+                }
 
             }
             Box(modifier = Modifier.weight(1f)) {
@@ -236,7 +238,7 @@ fun FeaturesItem(features: Features, onClick: () -> Unit) {
 //            )
             Button(onClick = onClick, modifier = Modifier
                 .align(Alignment.BottomEnd), contentPadding = PaddingValues(0.dp)
-                , shape = RoundedCornerShape(11.dp), colors = ButtonDefaults.buttonColors(ButtonBlue.copy(alpha = 0.7f))
+                , shape = RoundedCornerShape(11.dp), colors = ButtonDefaults.buttonColors(features.darkColor.copy(alpha = 0.8f))
             ) {
                 Text(text = "Start", fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }

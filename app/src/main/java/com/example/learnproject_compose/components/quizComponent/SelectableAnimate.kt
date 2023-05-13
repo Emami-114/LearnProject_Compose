@@ -42,14 +42,16 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.learnproject_compose.model.QuizModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun SelectableAnimate(
     modifier: Modifier = Modifier,
     selected: Boolean,
     quizAnswer: String,
-    isActiveState:Boolean,
+    isActiveState: Boolean,
     titleColor: Color = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(
         alpha = 0.2f
     ),
@@ -68,7 +70,6 @@ fun SelectableAnimate(
 ) {
     val scaleA = remember { Animatable(1f) }
     val scaleB = remember { Animatable(1f) }
-
 
 
     LaunchedEffect(key1 = selected) {
@@ -95,6 +96,7 @@ fun SelectableAnimate(
                 )
             }
         }
+
     }
 
     Column(
@@ -123,7 +125,7 @@ fun SelectableAnimate(
                     .scale(scaleA.value)
             ) {
                 Icon(
-                    imageVector = if (selected) icon else Icons.Outlined.CheckCircle,
+                    imageVector = icon,
                     contentDescription = "Icon Check",
                     tint = iconColor
                 )

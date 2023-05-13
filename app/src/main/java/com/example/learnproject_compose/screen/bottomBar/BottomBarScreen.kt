@@ -23,4 +23,17 @@ sealed class BottomBarScreen(val route: String, val title: String, val icon: Int
 
     object QuizDisplay :
         BottomBarScreen(route = "quizPage", title = "Quiz", icon = R.drawable.ic_setting)
+
+    object QuizDisplayCounter :
+        BottomBarScreen(route = "quizPageCounter", title = "QuizCounter", icon = R.drawable.ic_setting)
+
+
+    object DictionaryScreenSearch :
+        BottomBarScreen(route = "dictionaryScreenSearch", title = "Dictionary Search", icon = R.drawable.ic_setting)
+
+    object DictionaryScreenFavorite :
+        BottomBarScreen(route = "dictionaryScreenFavorite", title = "Dictionary Favorite", icon = R.drawable.ic_setting)
+
+    object DictionaryPages :
+        BottomBarScreen(route = "dictionaryPages", title = "Dictionary", icon = R.drawable.ic_setting)
 }

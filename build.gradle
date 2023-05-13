@@ -3,7 +3,6 @@
 buildscript {
     ext {
         accompanist_version = '0.13.0'
-
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.45"

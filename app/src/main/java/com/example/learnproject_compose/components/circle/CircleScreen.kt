@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.learnproject_compose.components.Circle
 import com.example.learnproject_compose.ui.theme.BlueViolet3
+import com.example.learnproject_compose.ui.theme.TextWhite
 
 @Composable
 fun CirclerScreen(indicatorValue: Int,maxIndicator:Int, ) {
@@ -36,7 +37,11 @@ fun CirclerScreen(indicatorValue: Int,maxIndicator:Int, ) {
             indicatorValue = indicatorValue,
             maxIndicatorValue = maxIndicator,
             bigTextSuffix = "300", smallText = "Ergibnis",
-            forgroundIndicatorColor = BlueViolet3
+            forgroundIndicatorColor = BlueViolet3,
+            bigTextColor = TextWhite,
+            smallTextColor = TextWhite.copy(alpha = .8f),
+
+
         )
 
 

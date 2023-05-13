@@ -33,13 +33,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.learnproject_compose.ui.theme.TextWhite
 
 @Composable
 fun Circle(
     canvasSize: Dp = 300.dp,
     indicatorValue: Int = 0,
     maxIndicatorValue: Int = 100,
-    backIndicatorColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.1f),
+    backIndicatorColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f),
     backGroundStrockeWidth: Float = 100f,
     forgroundIndicatorColor: Color = MaterialTheme.colors.primary,
     forgroundIndicatorStrokeWidth: Float = 100f,
@@ -48,7 +49,7 @@ fun Circle(
     bigTextSuffix: String = "300",
     smallText: String = "Ergibnes",
     smallTextFontSize: TextUnit = MaterialTheme.typography.h6.fontSize,
-    smallTextColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
+    smallTextColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
 ) {
 
     // TODO: Wir Speichern unsere maxValue in State
@@ -79,7 +80,7 @@ fun Circle(
 // TODO: mit diese variable sagen wir wenn auf 0 den wert ist, soll die farbe gray
     val animatedBigText by animateColorAsState(
         targetValue = if (allowIndicatorValue == 0)
-            MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
+            TextWhite.copy(alpha = 0.5f)
         else bigTextColor,
         animationSpec = tween(1500)
     )
@@ -191,7 +192,7 @@ fun EmbededElements(
                     append("$bigTex/")
                     withStyle(
                         style = SpanStyle(
-                            color = Color.Gray,
+                            color = TextWhite.copy(alpha = .8f),
                             fontWeight = FontWeight.Medium,
                             fontSize = 30.sp
                         )
