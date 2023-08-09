@@ -3,56 +3,65 @@ package com.example.learnproject_compose.components.circle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TextField
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.max
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.unit.dp
 import com.example.learnproject_compose.components.Circle
+import com.example.learnproject_compose.ui.theme.AppTheme
+import com.example.learnproject_compose.ui.theme.BlueViolet1
 import com.example.learnproject_compose.ui.theme.BlueViolet3
+import com.example.learnproject_compose.ui.theme.GreenColor
+import com.example.learnproject_compose.ui.theme.Orientation
 import com.example.learnproject_compose.ui.theme.TextWhite
+import com.example.learnproject_compose.ui.theme.TextWhiteDarke
+import com.example.learnproject_compose.ui.theme.rememberWindowSizeClass
 
 @Composable
-fun CirclerScreen(indicatorValue: Int,maxIndicator:Int, ) {
+fun CirclerScreen(
+    totalIndicatorValue: Int,
+    correctIndicatorValue: Int,
+    failureIndicatorValue: Int,
+    maxIndicator: Int,
 
+    ) {
 
     Column(
-        modifier = Modifier.fillMaxWidth().background(Color.Transparent),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        val windows = rememberWindowSizeClass()
 
         Circle(
-            indicatorValue = indicatorValue,
+            canvasSize = if (windows.height.size > 980 ||
+                AppTheme.orientation == Orientation.Landscope &&
+                windows.height.size > 600) 500.dp else 300.dp,
+            totalIndicatorValue = totalIndicatorValue,
+            correctIndicatorValue = correctIndicatorValue,
+            failureIndicatorValue = failureIndicatorValue,
             maxIndicatorValue = maxIndicator,
-            bigTextSuffix = "300", smallText = "Ergibnis",
-            forgroundIndicatorColor = BlueViolet3,
+            bigTextSuffix = "310", smallText = "Ergibnis",
+            forgroundIndicatorColor = BlueViolet3.copy(alpha = .8f),
+            forgroundIndicatorColor2 = GreenColor.copy(alpha = .9f),
+            forgroundIndicatorColor3 = Color.Red.copy(alpha = .5f),
             bigTextColor = TextWhite,
             smallTextColor = TextWhite.copy(alpha = .8f),
-
-
         )
-
 
 
     }
 }
 
 
-
-@Preview(showBackground = true)
-@Composable
-fun CirclerPreview() {
-    CirclerScreen(indicatorValue = 100, maxIndicator = 100)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CirclerPreview() {
+//    CirclerScreen(indicatorValue = 100, maxIndicator = 100)
+//}

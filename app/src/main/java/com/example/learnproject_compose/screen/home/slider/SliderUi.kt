@@ -1,60 +1,49 @@
 package com.example.learnproject_compose.screen.home.slider
 
-import android.graphics.PorterDuff
-import android.widget.RatingBar
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
-
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnproject_compose.R
-import com.example.learnproject_compose.screen.home.features.features
-import com.example.learnproject_compose.ui.theme.BlueViolet3
-import com.example.learnproject_compose.ui.theme.DeepBlue
+import com.example.learnproject_compose.screen.home.features.SliderItem
+import com.example.learnproject_compose.ui.theme.AppTheme
+import com.example.learnproject_compose.ui.theme.LightGreen1
+import com.example.learnproject_compose.ui.theme.LightGreen2
+import com.example.learnproject_compose.ui.theme.LightGreen3
 import com.example.learnproject_compose.ui.theme.TextWhite
+import com.example.learnproject_compose.ui.theme.rememberWindowSizeClass
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun SlideUi(slide: List<SliderModel> = slideList) {
+fun SlideUi(wordList: SliderWordModel, sliderColor: SliderColor) {
 
-    val pagerState = rememberPagerState(initialPage = 2, pageCount = slide.size)
+val windows = rememberWindowSizeClass()
+//    val wordList = viewModel.wordsList.data ?: listOf()
+
+
+    val pagerState = rememberPagerState(initialPage = 0, pageCount = 1)
     LaunchedEffect(Unit) {
         while (true) {
             yield()
@@ -69,13 +58,24 @@ fun SlideUi(slide: List<SliderModel> = slideList) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
+//            .height(if (windows.height.size < 821)300.dp else 500.dp),
+                ,
+        verticalArrangement = Arrangement.Center,
     ) {
+        Text(
+            text = "Wort des Tages",
+            style = MaterialTheme.typography.h6,
+            fontWeight = FontWeight.Bold,
+            color = TextWhite,
+            modifier = Modifier.padding(start = 5.dp)
+                .padding(AppTheme.dimens.smallMedium)
+        )
 
-        Spacer(modifier = Modifier.height(10.dp))
+
+//        Spacer(modifier = Modifier.height(10.dp))
         HorizontalPager(
             state = pagerState, modifier = Modifier
-                .weight(1f)
+//                .weight(1f)
                 .padding(0.dp, 10.dp, 0.dp, 10.dp)
         ) { page ->
             Card(modifier = Modifier
@@ -93,55 +93,64 @@ fun SlideUi(slide: List<SliderModel> = slideList) {
                 }
                 .fillMaxWidth()
                 .padding(15.dp, 0.dp, 15.dp, 0.dp),
-                shape = RoundedCornerShape(20.dp)) {
-                val newSlid = slide[page]
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize().background(BlueViolet3)
-                        .align(Alignment.CenterHorizontally)
-                ) {
-                    Image(
-                        painter = painterResource(id = newSlid.imageUri),
-                        contentDescription = newSlid.title,
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.fillMaxSize()
-                    )
+                shape = RoundedCornerShape(AppTheme.dimens.smallMedium)) {
+//                val newSlidColor = sliderColor[page]
+
+//                val newWord = wordList?.get(page) ?: SliderWordModel()
+
+                SliderItem(
+                    word = wordList.word,
+                    translate = wordList.translate,
+                    sliderColor.darkColor,
+                    sliderColor.mediumColor,
+                    sliderColor.lightColor,
+                    window = windows
+                ) {}
 
 
-                    Column(
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(10.dp)
-                    ) {
-                        Text(
-                            text = newSlid.title,
-                            style = MaterialTheme.typography.titleMedium,
-                            color = TextWhite,
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 23.sp
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                ) {
+//
+//                    }
 
-                        )
-                        Text(
-                            text = newSlid.desc,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = TextWhite,
-                            fontWeight = FontWeight.Normal,
-                            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
-                        )
+//                    Column(
+//                        modifier = Modifier
+//                            .align(Alignment.BottomStart)
+//                            .padding(10.dp)
+//                    ) {
+//
+//
+//                        Text(
+//                            text = newSlid.title,
+//                            style = MaterialTheme.typography.titleMedium,
+//                            color = TextWhite,
+//                            fontWeight = FontWeight.ExtraBold,
+//                            fontSize = 23.sp
+//
+//                        )
+//                        Text(
+//                            text = newSlid.desc,
+//                            style = MaterialTheme.typography.bodySmall,
+//                            color = TextWhite,
+//                            fontWeight = FontWeight.Normal,
+//                            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
+//                        )
+//
+//                    }
 
-                    }
-                }
 
             }
 
         }
-        HorizontalPagerIndicator(
-            pagerState = pagerState,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(8.dp),
-            indicatorShape = CutCornerShape(10.dp),
-        )
+//        HorizontalPagerIndicator(
+//            pagerState = pagerState,
+//            modifier = Modifier
+//                .align(Alignment.CenterHorizontally)
+//                .padding(8.dp),
+//            indicatorShape = CutCornerShape(10.dp),
+//        )
 
 
     }
@@ -151,7 +160,11 @@ fun SlideUi(slide: List<SliderModel> = slideList) {
 @Preview(showBackground = true)
 @Composable
 fun SlideUiPreview() {
-    SlideUi()
+    SlideUi(
+        wordList = SliderWordModel("", "dcww", "dcwcwcwc", "A1"), sliderColor = SliderColor(
+            LightGreen1, LightGreen2, LightGreen3
+        )
+    )
 
 }
 

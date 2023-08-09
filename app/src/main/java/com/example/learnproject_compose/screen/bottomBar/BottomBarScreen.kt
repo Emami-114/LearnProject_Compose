@@ -36,4 +36,19 @@ sealed class BottomBarScreen(val route: String, val title: String, val icon: Int
 
     object DictionaryPages :
         BottomBarScreen(route = "dictionaryPages", title = "Dictionary", icon = R.drawable.ic_setting)
+
+
+    object SignInScreen :
+        BottomBarScreen(route = "signInScreen", title = "Sign In", icon = R.drawable.ic_setting)
+
+    object ForgotPasswordScreen :
+        BottomBarScreen(route = "forgotPasswordScreen", title = "Forgot Password", icon = R.drawable.ic_setting)
+    object SignUpPages :
+        BottomBarScreen(route = "signUpPages", title = "Sign Up", icon = R.drawable.ic_setting)
+
+    object VerifyEmailScreen :
+        BottomBarScreen(route = "verifyEmailScreen", title = "Verify Screen", icon = R.drawable.ic_setting)
+
+    object ProfileScreen :
+        BottomBarScreen(route = "profileScreen", title = "Profile", icon = R.drawable.ic_setting)
 }

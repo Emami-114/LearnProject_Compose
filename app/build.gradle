@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -20,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
     }
 
     buildTypes {
@@ -50,6 +53,8 @@ android {
 
 dependencies {
 
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.0'
     def room_version = "2.5.1"
 
     implementation 'androidx.core:core-ktx:1.8.0'
@@ -68,6 +73,11 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
+
 
     implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-beta01'
 
@@ -95,7 +105,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
 
-    implementation "androidx.navigation:navigation-compose:2.5.3"
+//    implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation("androidx.navigation:navigation-compose:2.6.0-rc01")
 
 
     implementation "com.google.dagger:hilt-android:2.45"
@@ -104,7 +115,25 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
 
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
+
 
     //    ButtonBar Animation
     implementation("com.exyte:animated-navigation-bar:1.0.0")
+
+
+    implementation "com.google.accompanist:accompanist-navigation-animation:0.31.0-alpha"
+
+
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
+
+
+    implementation "com.google.accompanist:accompanist-permissions:0.31.3-beta"
+
+// Coil
+    implementation("io.coil-kt:coil-compose:2.3.0")
+
+
+
+
 }

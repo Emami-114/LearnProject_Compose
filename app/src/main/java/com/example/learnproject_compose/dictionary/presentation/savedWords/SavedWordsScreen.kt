@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -31,14 +32,17 @@ import androidx.navigation.NavController
 import com.example.learnproject_compose.dictionary.domain.WordOrder
 import com.example.learnproject_compose.dictionary.domain.model.entity.WordDataEntity
 import com.example.learnproject_compose.dictionary.presentation.savedWords.components.OrderRadioButtons
+import com.example.learnproject_compose.screen.home.largeRadialGradient
+import com.example.learnproject_compose.ui.theme.LightGreen1
 import com.example.learnproject_compose.ui.theme.TextWhite
+import com.example.learnproject_compose.ui.theme.TextWhiteDarke
 import com.example.learnproject_compose.ui.theme.backgroundWhite
 
 @Composable
 fun SavedWordPage(navController: NavController) {
     Column(modifier = Modifier.background(backgroundWhite)) {
 
-    SavedWordsScreen()
+        SavedWordsScreen()
     }
 
 }
@@ -53,6 +57,7 @@ fun SavedWordsScreen(viewModel: SaveWordsViewModel = hiltViewModel()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(largeRadialGradient)
                 .padding(20.dp)
         ) {
             SearchBarSaved(wordQury, viewModel, state.wordOrder)
@@ -70,7 +75,7 @@ fun SavedWordsScreen(viewModel: SaveWordsViewModel = hiltViewModel()) {
             state.isEmpty -> Text(
                 text = "Keine Daten gefunden! :(", modifier = Modifier.align(
                     Alignment.Center
-                )
+                ), color = TextWhite
             )
         }
 
@@ -93,19 +98,29 @@ fun SearchBarSaved(
             wordQuery.value = text
         },
         maxLines = 1,
-        placeholder = { Text(text = "Geben Sie ein Wort ein...") },
+        placeholder = { Text(text = "Geben Sie ein Wort ein...", color = TextWhiteDarke) },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = null
+                contentDescription = null, tint = TextWhiteDarke
             )
         },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedLabelColor = LightGreen1,
+            focusedBorderColor = LightGreen1,
+            unfocusedBorderColor = TextWhiteDarke,
+            unfocusedLabelColor = TextWhiteDarke,
+            textColor = TextWhite
+        )
     )
 }
 
 @Composable
 fun SavedWordList(viewModel: SaveWordsViewModel, wordDataEntityItems: List<WordDataEntity>) {
-    LazyColumn(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp)) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
         items(wordDataEntityItems.size) { i ->
             SavedWordsItem(
                 wordDataEntity = wordDataEntityItems[i],

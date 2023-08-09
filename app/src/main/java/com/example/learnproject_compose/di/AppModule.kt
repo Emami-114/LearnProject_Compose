@@ -3,6 +3,9 @@ package com.example.learnproject_compose.di
 import android.app.Application
 import androidx.room.Room
 import com.example.learnproject_compose.QuizRepository
+import com.example.learnproject_compose.deutschTest.data.dao.DeQuizDao
+import com.example.learnproject_compose.deutschTest.data.repository.DeQuizRepositoryImpl
+import com.example.learnproject_compose.deutschTest.domain.repository.DeQuizRepository
 import com.example.learnproject_compose.dictionary.data.local.SaveWordsDao
 import com.example.learnproject_compose.dictionary.data.local.SavedWordsRepoImpl
 import com.example.learnproject_compose.dictionary.data.repo.WordDataRepoImpl
@@ -16,6 +19,13 @@ import com.example.learnproject_compose.dictionary.domain.use_case.RemoveFromSav
 import com.example.learnproject_compose.dictionary.remote.DictionaryApiService
 import com.example.learnproject_compose.local.Dao
 import com.example.learnproject_compose.local.Databases
+import com.example.learnproject_compose.missing_word.data.repository.MissingWordRepoImpl
+import com.example.learnproject_compose.missing_word.local.repository.MissingWordRepo
+import com.example.learnproject_compose.missing_word.peresentation.MissingWordViewModel
+import com.example.learnproject_compose.screen.home.slider.SliderWordRepo
+import com.example.learnproject_compose.swipeableCards.local.repository.CardRepository
+import com.example.learnproject_compose.swipeableCards.repositoryImp.CardRepoImpl
+import com.google.firebase.firestore.CollectionReference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -100,6 +110,19 @@ object AppModule {
         ).build()
     }
 
+    @Provides
+    @Singleton
+    fun provideMissWordRepo(): MissingWordRepo = MissingWordRepoImpl()
+
+
+    @Provides
+    @Singleton
+    fun provideCardsSetRepo(): CardRepository = CardRepoImpl()
+
+
+    @Provides
+    @Singleton
+    fun provideSliderWordRepo(): SliderWordRepo = SliderWordRepo()
 
     @Provides
     @Singleton
@@ -112,4 +135,11 @@ object AppModule {
     fun providerDao(db: Databases): Dao {
         return db.quizDao
     }
+
+    @Provides
+    @Singleton
+    fun providerDeQuizDao(db: Databases): DeQuizDao {
+        return db.deQuizDao
+    }
+
 }

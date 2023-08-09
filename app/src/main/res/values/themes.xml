@@ -2,4 +2,12 @@
 <resources>
 
     <style name="Theme.LearnProject_Compose" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.LearnProject_Compose.NoActionBarAndStatusBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>

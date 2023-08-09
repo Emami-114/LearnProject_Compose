@@ -1,6 +1,8 @@
 package com.example.learnproject_compose.dictionary.presentation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.LeadingIconTab
 import androidx.compose.material.Scaffold
@@ -14,8 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.learnproject_compose.components.topBar.TopBarSelb
 import com.example.learnproject_compose.dictionary.presentation.savedWords.components.TabItem
-import com.example.learnproject_compose.screen.bottomBar.BottomBarScreen
+import com.example.learnproject_compose.navigation.DetailsScreen
+import com.example.learnproject_compose.ui.theme.DeepBlue
 import com.example.learnproject_compose.ui.theme.TextWhite
 import com.example.learnproject_compose.ui.theme.statusBarColor
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -35,10 +39,21 @@ fun DictionaryPages(navController: NavController) {
         listOf(TabItem.Dictionary, TabItem.DictionaryFavorite)
     val pagerState = rememberPagerState(pageCount = dictionaryPage.size)
     Scaffold(topBar = {
-        Tabs(tabs = dictionaryPage, pagerState = pagerState)
-    }, content = {
-        TabContent(tabs = dictionaryPage, pagerState = pagerState, navController)
-    })
+        TopBarSelb(title = "Wörterbuch") {
+            navController.navigate(DetailsScreen.HOME2.route)
+        }
+    }) {
+        Column(modifier = Modifier.padding(it)) {
+            Scaffold(topBar = {
+                Tabs(tabs = dictionaryPage, pagerState = pagerState)
+            }, content = {
+                TabContent(tabs = dictionaryPage, pagerState = pagerState, navController)
+            })
+        }
+
+    }
+
+
 }
 
 @OptIn(ExperimentalPagerApi::class)
@@ -67,7 +82,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
     val scope = rememberCoroutineScope()
     TabRow(
         selectedTabIndex = pagerState.currentPage,
-        backgroundColor = statusBarColor,
+        backgroundColor = DeepBlue,
         contentColor = TextWhite,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(Modifier.pagerTabIndicatorOffset(pagerState, tabPositions))
@@ -76,8 +91,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
             LeadingIconTab(icon = {
                 Icon(
                     painter = painterResource(id = bottomBarScreen.icon),
-                    contentDescription = ""
-                )
+                    contentDescription = "")
             }, text = {
                 Text(
                     text = bottomBarScreen.title

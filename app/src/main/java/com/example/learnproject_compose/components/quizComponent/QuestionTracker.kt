@@ -26,6 +26,7 @@ fun QuestionTracker(
                 color = bigTextColor,
                 fontWeight = FontWeight.Bold,
                 fontSize = 27.sp,
+
             )
         ) {
             append("$counterText $counter/")

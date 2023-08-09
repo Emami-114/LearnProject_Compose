@@ -37,10 +37,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.learnproject_compose.components.quizComponent.DrawDottedLine
 import com.example.learnproject_compose.dictionary.domain.model.Definition
 import com.example.learnproject_compose.dictionary.domain.model.Meaning
 import com.example.learnproject_compose.dictionary.domain.model.entity.WordDataEntity
 import com.example.learnproject_compose.dictionary.util.HyperlinkText
+import com.example.learnproject_compose.ui.theme.TextBlack
 import com.example.learnproject_compose.ui.theme.TextWhite
 import com.example.learnproject_compose.ui.theme.backgroundWhite
 import com.example.learnproject_compose.util.noRippleClickable
@@ -54,6 +56,8 @@ fun SavedWordsItem(wordDataEntity: WordDataEntity, onBookmarkClicked: (WordDataE
     val rotationState by animateFloatAsState(targetValue = if (expendetState) 180f else 0f)
 
     Card(
+        shape = RoundedCornerShape(10.dp),
+
         modifier = Modifier
             .fillMaxWidth()
             .noRippleClickable { expendetState = !expendetState }
@@ -62,35 +66,44 @@ fun SavedWordsItem(wordDataEntity: WordDataEntity, onBookmarkClicked: (WordDataE
                     durationMillis = 500, easing = LinearOutSlowInEasing
                 )
             ),
-        shape = RoundedCornerShape(20.dp),
     ) {
 
         Column(
             modifier = Modifier
                 .background(TextWhite)
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(12.dp),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.weight(6f)) {
                     DisplayWordSaved(wordDataEntity, onBookmarkClicked)
-                }
-                Box(modifier = Modifier.weight(1f).noRippleClickable { expendetState != expendetState },) {
 
-                        Icon(
-                            modifier = Modifier
-                                .alpha(ContentAlpha.medium)
-                                .rotate(rotationState),
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = null
-                        )
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .noRippleClickable { expendetState != expendetState },
+                ) {
+
+                    Icon(
+                        modifier = Modifier
+                            .alpha(ContentAlpha.medium)
+                            .rotate(rotationState),
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = null
+                    )
 
                 }
             }
 
+
             if (expendetState) {
                 DisplayPhoneticSaved(wordDataEntity.phonetic)
+                DrawDottedLine()
+
                 DisplayMeaningsSaved(wordDataEntity.meanings)
+                DrawDottedLine()
+
                 DisplaySourceUrlsSaved(wordDataEntity.sourceUrls)
 
             }
@@ -106,7 +119,10 @@ private fun DisplayWordSaved(
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = wordDataEntity.word, fontSize = 25.sp, fontWeight = FontWeight.ExtraBold
+            text = wordDataEntity.word,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = TextBlack
         )
         Spacer(modifier = Modifier.width(20.dp))
         Icon(imageVector = Icons.Default.Bookmark,
@@ -123,7 +139,7 @@ private fun DisplayWordSaved(
 @Composable
 private fun DisplayPhoneticSaved(phonetic: String?) {
 
-    Text(text = phonetic ?: "")
+    Text(text = phonetic ?: "", color = TextBlack)
     Spacer(modifier = Modifier.height(10.dp))
 }
 
@@ -146,9 +162,15 @@ private fun DisplayDefinitionsSaved(definitions: List<Definition>?) {
 
 @Composable
 private fun DisplayDefinitionSaved(index: Int, definition: Definition?) {
-    androidx.compose.material3.Text(text = "${index + 1}. ${definition?.definition ?: ""}")
+    androidx.compose.material3.Text(
+        text = "${index + 1}. ${definition?.definition ?: ""}",
+        color = TextBlack
+    )
     Spacer(modifier = Modifier.height(5.dp))
-    androidx.compose.material3.Text(text = "Example: ${definition?.example ?: ""}")
+    androidx.compose.material3.Text(
+        text = "Example: ${definition?.example ?: ""}",
+        color = TextBlack
+    )
     Spacer(modifier = Modifier.height(8.dp))
 
 }
@@ -156,7 +178,7 @@ private fun DisplayDefinitionSaved(index: Int, definition: Definition?) {
 @Composable
 private fun DisplayPartOfSpeech(partOfSpeech: String?) {
     Text(
-        text = partOfSpeech ?: "", fontSize = 17.sp, fontWeight = FontWeight.Bold
+        text = partOfSpeech ?: "", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = TextBlack
     )
     Spacer(modifier = Modifier.height(5.dp))
 }
@@ -165,7 +187,7 @@ private fun DisplayPartOfSpeech(partOfSpeech: String?) {
 @Composable
 fun DisplaySourceUrlsSaved(sourceUrls: List<String>?) {
     androidx.compose.material3.Text(
-        text = "Source:", fontSize = 15.sp, fontWeight = FontWeight.Medium
+        text = "Source:", fontSize = 15.sp, fontWeight = FontWeight.Medium, color = TextBlack
     )
     sourceUrls?.forEach { sourceUrl ->
         HyperlinkText(

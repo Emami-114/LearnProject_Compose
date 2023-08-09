@@ -21,17 +21,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.learnproject_compose.components.quizComponent.DrawDottedLine
 import com.example.learnproject_compose.dictionary.domain.model.Definition
 import com.example.learnproject_compose.dictionary.domain.model.Meaning
 import com.example.learnproject_compose.dictionary.domain.model.WordData
 import com.example.learnproject_compose.dictionary.util.HyperlinkText
+import com.example.learnproject_compose.ui.theme.TextWhite
+import com.example.learnproject_compose.ui.theme.TextWhite
+import com.example.learnproject_compose.ui.theme.TextWhiteDarke
 
 @Composable
 fun WordDataItem(wordData: WordData, onBookMarkClicked: (WordData) -> Unit) {
     Column {
         DisplayWord(wordData, onBookMarkClicked)
+
         DisplayPhonetic(wordData.phonetic)
+        DrawDottedLine()
+
         DisplayMeanings(wordData.meanings)
+        DrawDottedLine()
+
         DisplaySourceUrls(wordData.sourceUrls)
     }
 
@@ -39,11 +48,13 @@ fun WordDataItem(wordData: WordData, onBookMarkClicked: (WordData) -> Unit) {
 
 @Composable
 private fun DisplaySourceUrls(sourceUrls: List<String>?) {
-    Text(text = "Source:", fontSize = 15.sp, fontWeight = FontWeight.Medium)
+    Text(text = "Source:", fontSize = 15.sp, fontWeight = FontWeight.Medium, color = TextWhiteDarke)
     sourceUrls?.forEach { sourceUrl ->
-        HyperlinkText(fullText = sourceUrl, hyperlinks = mapOf(
-            sourceUrl to sourceUrl
-        ), fontSize = 15.sp)
+        HyperlinkText(
+            fullText = sourceUrl, hyperlinks = mapOf(
+                sourceUrl to sourceUrl
+            ), fontSize = 15.sp
+        )
     }
     Spacer(modifier = Modifier.height(15.dp))
 }
@@ -65,23 +76,28 @@ private fun DisplayDefinitions(definitions: List<Definition>?) {
 
 @Composable
 private fun DisplayDefinition(index: Int, definition: Definition?) {
-    Text(text = "${index + 1}. ${definition?.definition ?: ""}")
+    Text(text = "${index + 1}. ${definition?.definition ?: ""}", color = TextWhite)
     Spacer(modifier = Modifier.height(5.dp))
-    Text(text = "Example: ${definition?.example ?: ""}")
+    Text(text = "Example: ${definition?.example ?: ""}", color = TextWhite)
     Spacer(modifier = Modifier.height(8.dp))
 
 }
 
 @Composable
 private fun DisplayPartOfSpeech(partOfSpeech: String?) {
-    Text(text = partOfSpeech ?: "", fontSize = 17.sp, fontWeight = FontWeight.Bold)
+    Text(
+        text = partOfSpeech ?: "",
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Bold,
+        color = TextWhite
+    )
     Spacer(modifier = Modifier.height(5.dp))
 
 }
 
 @Composable
 private fun DisplayPhonetic(phonetic: String?) {
-    Text(text = phonetic ?: "")
+    Text(text = phonetic ?: "", color = TextWhite)
     Spacer(modifier = Modifier.height(10.dp))
 }
 
@@ -89,7 +105,10 @@ private fun DisplayPhonetic(phonetic: String?) {
 private fun DisplayWord(wordData: WordData, onBookMarkClicked: (WordData) -> Unit) {
     var isSaved by remember { mutableStateOf(wordData.isSaved) }
     Row(modifier = Modifier.fillMaxWidth()) {
-        Text(text = wordData.word, fontSize = 25.sp, fontWeight = FontWeight.ExtraBold)
+        Text(
+            text = wordData.word,
+            fontSize = 25.sp, fontWeight = FontWeight.ExtraBold, color = TextWhite
+        )
         Spacer(modifier = Modifier.width(20.dp))
         Icon(
             imageVector = if (isSaved) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
@@ -100,7 +119,8 @@ private fun DisplayWord(wordData: WordData, onBookMarkClicked: (WordData) -> Uni
                     isSaved = !isSaved
                     wordData.isSaved = !wordData.isSaved
                     onBookMarkClicked(wordData)
-                })
+                }, tint = TextWhite
+        )
 
     }
 }
