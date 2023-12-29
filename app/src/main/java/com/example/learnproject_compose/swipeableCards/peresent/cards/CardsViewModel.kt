@@ -25,7 +25,8 @@ class CardsViewModel @Inject constructor(private val repo: CardRepository) : Vie
     private val hasUser = repo.hasUser() != null
 
 
-    val cardUiState = mutableStateOf<Resources2<List<CardModule>>>(Resources2.Loading())
+    val cardUiState =
+        mutableStateOf<Resources2<List<CardModule>>>(Resources2.Loading())
 
 
     var addCardsUiState by mutableStateOf(AddCardUiState())
@@ -72,26 +73,16 @@ class CardsViewModel @Inject constructor(private val repo: CardRepository) : Vie
             repo.addCardToFireStore(
                 question = addCardsUiState.question,
                 corAnswer = addCardsUiState.corAnswer,
-
                 cardsRef = cardRef,
             ) {
                 addCardsUiState = addCardsUiState.copy(addStatus = it)
-
             }
         }
     }
-
-
-
-
     fun resetMissState() {
         addCardsUiState = AddCardUiState()
     }
-
-
 }
-
-
 data class AddCardUiState(
     val documenId: String = "",
     val question: String = "",

@@ -15,9 +15,9 @@ interface DeQuizDao {
     suspend fun insertDeQuiz(list: List<DeQuiz>)
 
 
-    @Query("SELECT * FROM dequiz WHERE CAST (id AS INTEGER) BETWEEN :startId AND :endId ORDER BY RANDOM() LIMIT :limit")
+    @Query("SELECT * FROM dequiz WHERE CAST (id AS INTEGER) BETWEEN :startId AND :endId  LIMIT :limit")
     suspend fun getDeQuizRandomLimit(limit: Int,startId: Int = 1, endId: Int = 300): List<DeQuiz>
-
+// ORDER BY RANDOM()
 
     @Query("SELECT * FROM dequiz WHERE CAST (id AS INTEGER) BETWEEN :startId AND :endId")
     suspend fun getDeQuizRange(startId:Int,endId:Int): List<DeQuiz>

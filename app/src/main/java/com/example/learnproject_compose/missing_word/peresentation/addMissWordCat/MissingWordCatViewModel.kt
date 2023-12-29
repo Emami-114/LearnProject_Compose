@@ -44,8 +44,6 @@ class MissingWordCatViewModel @Inject constructor(private val repo: MissingWordR
             getMissWordCatFromFireStore("Alle")
         } else {
             getMissWordCatFromFireStore(userNiva)
-
-
         }
     }
 
